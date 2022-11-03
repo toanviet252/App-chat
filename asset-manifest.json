@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/https/toanviet252.github.io/App-chat/static/css/main.4944ab5c.css",
+    "main.js": "/https/toanviet252.github.io/App-chat/static/js/main.c489875e.js",
+    "static/css/906.ab969f48.chunk.css": "/https/toanviet252.github.io/App-chat/static/css/906.ab969f48.chunk.css",
+    "static/js/906.804c3244.chunk.js": "/https/toanviet252.github.io/App-chat/static/js/906.804c3244.chunk.js",
+    "static/css/375.21306056.chunk.css": "/https/toanviet252.github.io/App-chat/static/css/375.21306056.chunk.css",
+    "static/js/375.14340bd5.chunk.js": "/https/toanviet252.github.io/App-chat/static/js/375.14340bd5.chunk.js",
+    "static/js/787.6f726199.chunk.js": "/https/toanviet252.github.io/App-chat/static/js/787.6f726199.chunk.js",
+    "static/js/797.7d5cd72d.chunk.js": "/https/toanviet252.github.io/App-chat/static/js/797.7d5cd72d.chunk.js",
+    "static/media/fontawesome-webfont.svg?v=4.7.0": "/https/toanviet252.github.io/App-chat/static/media/fontawesome-webfont.c1e38fd9e0e74ba58f7a.svg",
+    "static/media/fontawesome-webfont.eot": "/https/toanviet252.github.io/App-chat/static/media/fontawesome-webfont.8b43027f47b20503057d.eot",
+    "static/media/fontawesome-webfont.ttf?v=4.7.0": "/https/toanviet252.github.io/App-chat/static/media/fontawesome-webfont.1e59d2330b4c6deb84b3.ttf",
+    "static/media/fontawesome-webfont.woff?v=4.7.0": "/https/toanviet252.github.io/App-chat/static/media/fontawesome-webfont.f691f37e57f04c152e23.woff",
+    "static/media/fontawesome-webfont.woff2?v=4.7.0": "/https/toanviet252.github.io/App-chat/static/media/fontawesome-webfont.20fd1704ea223900efa9.woff2",
+    "index.html": "/https/toanviet252.github.io/App-chat/index.html",
+    "main.4944ab5c.css.map": "/https/toanviet252.github.io/App-chat/static/css/main.4944ab5c.css.map",
+    "main.c489875e.js.map": "/https/toanviet252.github.io/App-chat/static/js/main.c489875e.js.map",
+    "906.ab969f48.chunk.css.map": "/https/toanviet252.github.io/App-chat/static/css/906.ab969f48.chunk.css.map",
+    "906.804c3244.chunk.js.map": "/https/toanviet252.github.io/App-chat/static/js/906.804c3244.chunk.js.map",
+    "375.21306056.chunk.css.map": "/https/toanviet252.github.io/App-chat/static/css/375.21306056.chunk.css.map",
+    "375.14340bd5.chunk.js.map": "/https/toanviet252.github.io/App-chat/static/js/375.14340bd5.chunk.js.map",
+    "787.6f726199.chunk.js.map": "/https/toanviet252.github.io/App-chat/static/js/787.6f726199.chunk.js.map",
+    "797.7d5cd72d.chunk.js.map": "/https/toanviet252.github.io/App-chat/static/js/797.7d5cd72d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4944ab5c.css",
+    "static/js/main.c489875e.js"
+  ]
+}
