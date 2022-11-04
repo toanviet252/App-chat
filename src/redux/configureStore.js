@@ -31,8 +31,8 @@ export const AuthSlice = createSlice({
     setChooseContactUser(state, action) {
       state.chooseContactUser = action.payload;
     },
-    setIsChooseContact(state) {
-      state.isChooseContact = true;
+    setIsChooseContact(state, action) {
+      state.isChooseContact = action.payload;
     },
   },
 });

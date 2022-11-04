@@ -8,6 +8,27 @@
   h2 {
     margin: 0;
   }
+  .contact-name-contaienr {
+    display: flex;
+    .back-to-contact {
+      cursor: pointer;
+      background-color: transparent;
+      border: none;
+      margin-right: 0.2rem;
+      @media screen and (min-width: 600px) {
+        display: none;
+      }
+      display: block;
+      &:hover {
+        color: blue;
+      }
+    }
+  }
+  // @media screen and (max-width: 600px) {
+  //   .back-to-contact {
+  //     display: block !important;
+  //   }
+  // }
   .chat-toolkit-container {
     .kit-btn {
       border: none;

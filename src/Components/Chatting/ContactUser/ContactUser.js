@@ -29,8 +29,8 @@ const ContactUser = () => {
   const setUserQuery = (user) => {
     dispatch(QueryUserAction.setQueryUser(user));
   };
-  const setIsChooseContact = () => {
-    dispatch(AuthAction.setIsChooseContact());
+  const setIsChooseContact = (boolean) => {
+    dispatch(AuthAction.setIsChooseContact(boolean));
   };
 
   //Hàm fetch data hội thoại của người dùng khi nhấn vào div query người dùng đã được truy vấn
@@ -87,7 +87,7 @@ const ContactUser = () => {
     }
     setNameFind("");
     setChooseContactUser(userQuery);
-    setIsChooseContact();
+    setIsChooseContact(true);
     setUserQuery("");
   };
   //Hàm chọn liên hệ đã có sẵn, sau khi đã query từ trước đó.
@@ -99,7 +99,7 @@ const ContactUser = () => {
           : userInfor.uid + currentUser.uid;
       setChatId(combinedId);
       setChooseContactUser(userInfor);
-      setIsChooseContact();
+      setIsChooseContact(true);
     },
     // eslint-disable-next-line
     [currentUser.uid]

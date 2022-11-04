@@ -40,12 +40,15 @@ const Login = () => {
       switch (err.code) {
         case "auth/user-not-found":
           message.warning("Wrong email, please check again!");
+          setIsLogin(false);
           break;
         case "auth/wrong-password":
           message.warning("Wrong password, please check again!");
+          setIsLogin(false);
           break;
         default:
           console.log("default err", err);
+          setIsLogin(false);
       }
     }
   };
