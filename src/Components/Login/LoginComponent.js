@@ -29,10 +29,8 @@ const Login = () => {
   //Save session user when reload page
   useEffect(() => {
     (async () => {
-      // setisLoading(true)
       await auth._initializationPromise;
       if (auth.currentUser) {
-        console.log("loged in", auth.currentUser);
         const { uid, displayName, photoURL, phoneNumber, dateOfBirth } =
           auth.currentUser;
         setCurrentUser({

@@ -18,7 +18,7 @@ const ChatBody = () => {
         <Row className="body-main">
           <Col
             lg={10}
-            sm={12}
+            sm={isChooseContact ? 0 : 24}
             xs={isChooseContact ? 0 : 24}
             className="sidebar-chat"
           >
@@ -28,7 +28,7 @@ const ChatBody = () => {
           </Col>
           <Col
             lg={14}
-            sm={12}
+            sm={isChooseContact ? 24 : 0}
             xs={isChooseContact ? 24 : 0}
             className="message-container"
           >

@@ -7,5 +7,13 @@
   flex-direction: column;
   h1 {
     margin: 0;
+    @media screen and (max-width: 800px) {
+      font-size: 1rem;
+    }
+  }
+  .pic-template {
+    height: 25%;
+    width: 50%;
+    transform: scale(1.2);
   }
 }
