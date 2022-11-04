@@ -5,17 +5,17 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AuthAction, QueryUserAction } from "../../../redux/configureStore";
 import { query, collection, where, getDocs } from "firebase/firestore";
-import { db } from "../../../utils/Firebase/firebase";
-// import { signOut } from "firebase/auth";
+import { db, auth } from "../../../utils/Firebase/firebase";
+import { signOut } from "firebase/auth";
 
 const HeadUser = () => {
   const currentUser = useSelector((state) => state.Auth.currentUser);
   const curentUserPhoto = useSelector((state) => state.Auth.curentUserPhoto);
   const dispatch = useDispatch();
-  const logOut = () => {
+  const logOut = async () => {
+    await signOut(auth);
     dispatch(AuthAction.logOut());
     dispatch(AuthAction.setCurrentUser(null));
-    // signOut();
   };
   const nameFind = useSelector((state) => state.Auth.nameFind);
   const onChangeFindPeople = (event) => {

@@ -1,5 +1,5 @@
 import "./Login.scss";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Input, message, Spin } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { LoadingOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
@@ -7,6 +7,7 @@ import {
   signInWithGoogleAcc,
   createUserDocumentFromAuth,
   signInWithEmailAndPass,
+  auth,
 } from "../../utils/Firebase/firebase";
 import { AuthAction } from "../../redux/configureStore";
 import { useDispatch } from "react-redux";
@@ -25,6 +26,29 @@ const Login = () => {
     dispatch(AuthAction.logIn());
   };
 
+  //Save session user when reload page
+  useEffect(() => {
+    (async () => {
+      // setisLoading(true)
+      await auth._initializationPromise;
+      if (auth.currentUser) {
+        console.log("loged in", auth.currentUser);
+        const { uid, displayName, photoURL, phoneNumber, dateOfBirth } =
+          auth.currentUser;
+        setCurrentUser({
+          uid,
+          displayName,
+          photoURL,
+          phoneNumber,
+          dateOfBirth,
+        });
+        setCurrentUserPhoto(photoURL);
+        logIn();
+        navigate("/user");
+      }
+    })();
+  }, []);
+
   //Submit login
   const onSubmit = async (values) => {
     setIsLogin(true);
@@ -33,7 +57,7 @@ const Login = () => {
       const { user } = await signInWithEmailAndPass(email, password);
       const { uid, displayName, photoURL, phoneNumber, dateOfBirth } = user;
       setCurrentUser({ uid, displayName, photoURL, phoneNumber, dateOfBirth });
-      setCurrentUserPhoto(user.photoURL);
+      setCurrentUserPhoto(photoURL);
       logIn();
       navigate("/user");
     } catch (err) {

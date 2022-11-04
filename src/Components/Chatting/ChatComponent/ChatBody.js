@@ -12,8 +12,6 @@ import { useSelector } from "react-redux";
 
 const ChatBody = () => {
   const isChooseContact = useSelector((state) => state.Auth.isChooseContact);
-
-  console.log(isChooseContact);
   return (
     <>
       <div className="body-chat-wrapper">
