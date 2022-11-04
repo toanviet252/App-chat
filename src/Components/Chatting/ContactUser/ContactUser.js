@@ -94,7 +94,7 @@ const ContactUser = () => {
   const handleSelectCurrentContact = useCallback(
     (userInfor) => {
       const combinedId =
-        currentUser.uid > userInfor.uid
+        currentUser?.uid > userInfor?.uid
           ? currentUser.uid + userInfor.uid
           : userInfor.uid + currentUser.uid;
       setChatId(combinedId);
@@ -102,7 +102,7 @@ const ContactUser = () => {
       setIsChooseContact(true);
     },
     // eslint-disable-next-line
-    [currentUser.uid]
+    [currentUser?.uid]
   );
   const contactList = chats
     ?.sort((a, b) => b[1].date - a[1].date)
