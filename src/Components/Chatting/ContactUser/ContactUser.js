@@ -54,7 +54,7 @@ const ContactUser = () => {
   //Hàm tạo document userChats mới khi lần đầu tìm kiếm contact
   const handleSelect = async () => {
     const combinedId =
-      currentUser.uid > userQuery.uid
+      currentUser?.uid > userQuery?.uid
         ? currentUser.uid + userQuery.uid
         : userQuery.uid + currentUser.uid;
     setChatId(combinedId);
@@ -108,13 +108,16 @@ const ContactUser = () => {
     ?.sort((a, b) => b[1].date - a[1].date)
     .map((chat) => {
       return (
-        <div className="contact-container" key={chat[1].userInfo.uid}>
-          <Avatar src={chat[1].userInfo.photoURL} className="avatar-contact" />
+        <div className="contact-container" key={chat[1]?.userInfo?.uid}>
+          <Avatar
+            src={chat[1]?.userInfo?.photoURL}
+            className="avatar-contact"
+          />
           <div
             className="contact-detail"
             onClick={() => handleSelectCurrentContact(chat[1].userInfo)}
           >
-            <h3>{chat[1].userInfo.displayName}</h3>
+            <h3>{chat[1]?.userInfo?.displayName}</h3>
             <p>
               {chat[1].lastestMessage?.text.length > 0
                 ? chat[1].lastestMessage?.text

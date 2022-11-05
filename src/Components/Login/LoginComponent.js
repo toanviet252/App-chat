@@ -8,9 +8,11 @@ import {
   createUserDocumentFromAuth,
   signInWithEmailAndPass,
   auth,
+  db,
 } from "../../utils/Firebase/firebase";
 import { AuthAction } from "../../redux/configureStore";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { doc, setDoc } from "firebase/firestore";
 
 const Login = () => {
   const [form] = Form.useForm();
@@ -25,7 +27,7 @@ const Login = () => {
   const logIn = () => {
     dispatch(AuthAction.logIn());
   };
-
+  const currentUser = useSelector((state) => state.Auth.currentUser);
   //Save session user when reload page
   useEffect(() => {
     (async () => {
@@ -77,11 +79,15 @@ const Login = () => {
   const logInByGoogleAcc = async () => {
     const { user } = await signInWithGoogleAcc();
     await createUserDocumentFromAuth(user);
-    setCurrentUser(user);
-    setCurrentUserPhoto(user.photoURL);
+    const { displayName, photoURL, phoneNumber, dateOfBirth, uid } = user;
+    console.log("user login with gg account", user);
+    setCurrentUser({ displayName, photoURL, phoneNumber, uid, dateOfBirth });
+    setCurrentUserPhoto(photoURL);
+    await setDoc(doc(db, "userChats", user.uid), {});
     logIn();
     navigate("/user");
   };
+  console.log(currentUser);
   const [isLogin, setIsLogin] = useState(false);
   return (
     <>
