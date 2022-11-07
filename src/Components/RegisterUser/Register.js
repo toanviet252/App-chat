@@ -58,6 +58,7 @@ const RegisterUser = () => {
               navigate("/");
             } catch (err) {
               console.log("err when create users", err);
+              setIsRegister(false);
             }
           });
         }
@@ -69,8 +70,10 @@ const RegisterUser = () => {
         message.warning(
           "Email has already in used. Please choose another email!"
         );
+        setIsRegister(false);
       } else {
         console.log("Error from create user >>>>", err);
+        setIsRegister(false);
       }
     }
   };
@@ -240,6 +243,12 @@ const RegisterUser = () => {
             }
             return e && e.fileList;
           }}
+          rules={[
+            {
+              required: true,
+              message: "Choose your Avatar",
+            },
+          ]}
         >
           <Upload
             className="upload-img"

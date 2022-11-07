@@ -11,7 +11,7 @@ import {
   db,
 } from "../../utils/Firebase/firebase";
 import { AuthAction } from "../../redux/configureStore";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
 const Login = () => {
@@ -27,11 +27,14 @@ const Login = () => {
   const logIn = () => {
     dispatch(AuthAction.logIn());
   };
+  const currentUser = useSelector((state) => state.Auth.currentUser);
   //Save session user when reload page
   useEffect(() => {
+    // console.log("current User by Google", auth.currentUser);
+    // console.log("current User when login", currentUser);
     (async () => {
       await auth._initializationPromise;
-      if (auth.currentUser) {
+      if (currentUser) {
         const { uid, displayName, photoURL, phoneNumber, dateOfBirth } =
           auth.currentUser;
         setCurrentUser({
