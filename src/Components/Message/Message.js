@@ -12,6 +12,7 @@ const Message = ({ messages }) => {
   useEffect(() => {
     messageRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
   //Hàm translate timeStamp
   const pad = (num) => ("0" + num).slice(-2);
   const getTimeFromTimeStamp = (timeStamp) => {
@@ -19,9 +20,9 @@ const Message = ({ messages }) => {
     let hours = date.getHours();
     let minutes = date.getMinutes();
     return (
-      pad(date.getDay()) +
+      date.getDay() +
       "/" +
-      pad(date.getMonth()) +
+      date.getMonth() +
       "/" +
       pad(date.getUTCFullYear()) +
       " at " +

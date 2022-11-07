@@ -1,6 +1,6 @@
 import "./SendMessage.scss";
 import { SendOutlined, FileImageOutlined } from "@ant-design/icons";
-import { Tooltip, Input } from "antd";
+import { Tooltip } from "antd";
 import { useState } from "react";
 import {
   arrayUnion,
@@ -13,6 +13,7 @@ import { db, storage } from "../../../utils/Firebase/firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { useSelector } from "react-redux";
 import { v4 as uuid } from "uuid";
+import InputEmoji from "react-input-emoji";
 
 const SendMessage = () => {
   const [text, setText] = useState("");
@@ -22,6 +23,7 @@ const SendMessage = () => {
   const chooseUserContact = useSelector(
     (state) => state.Auth.chooseContactUser
   );
+  const [borderColor, setBorderColor] = useState("#EAEAEA");
   const handleSend = async () => {
     if (image) {
       const storageRef = ref(storage, `${uuid()}.${image.name}`);
@@ -88,24 +90,19 @@ const SendMessage = () => {
       </div>
       <form className="input-message-container" onSubmit={onSubmit}>
         <div className="input-message-feild">
-          <Input.TextArea
-            placeholder="Wrire something here!"
-            name="message"
-            id="message"
-            autoSize={{
-              minRows: 1,
-              maxRows: 3,
-            }}
+          <InputEmoji
             value={text}
-            onChange={(e) => setText(e.target.value)}
+            onChange={(value) => setText(value)}
+            placeholder="Type your message"
+            borderColor={borderColor}
+            onFocus={() => setBorderColor("#5eb2d3")}
+            onResize={false}
           />
-          {/* <Upload {...props}> */}
-          <Tooltip title="Upload file" color="blue">
+          <Tooltip title="Upload a photo" color="blue">
             <label className="add-image-btn" htmlFor="fileUpLoad">
               <FileImageOutlined />
             </label>
           </Tooltip>
-          {/* </Upload> */}
         </div>
         {(text?.trim().length > 0 || image !== null) && (
           <button className="send-btn btn" type="submit">

@@ -11,15 +11,7 @@
     display: flex;
     width: 100%;
     position: relative;
-    textarea {
-      padding: 0.5rem 1rem;
-      padding-right: 3rem;
-      border-radius: 1rem;
-      transition: 0.1s ease-in-out;
-      &:focus {
-        outline: 3px solid rgb(154 215 225);
-      }
-    }
+
     .add-image-btn {
       position: absolute;
       cursor: pointer;
@@ -29,7 +21,7 @@
       height: 50%;
       margin: auto;
       bottom: 0;
-      right: 1rem;
+      right: 3rem;
       top: 0;
       svg {
         font-size: 20px;
@@ -41,7 +33,6 @@
   }
 
   .send-btn {
-    align-self: flex-end;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -56,4 +47,9 @@
   position: absolute;
   bottom: 3rem;
   left: 1rem;
+}
+.react-input-emoji--input {
+  padding-right: 25px !important;
+  width: 95% !important ;
+  max-height: 75px !important;
 }

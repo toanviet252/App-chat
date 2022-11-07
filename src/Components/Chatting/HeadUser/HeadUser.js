@@ -83,7 +83,7 @@ const HeadUser = () => {
         </div>
       </div>
       <div className="input-feild">
-        <Input.Search
+        <Input
           placeholder="find people"
           value={nameFind}
           onKeyDown={handleKey}

@@ -12,7 +12,7 @@ import {
 } from "../../utils/Firebase/firebase";
 import { AuthAction } from "../../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 const Login = () => {
   const [form] = Form.useForm();
@@ -80,14 +80,15 @@ const Login = () => {
     const { user } = await signInWithGoogleAcc();
     await createUserDocumentFromAuth(user);
     const { displayName, photoURL, phoneNumber, dateOfBirth, uid } = user;
-    console.log("user login with gg account", user);
     setCurrentUser({ displayName, photoURL, phoneNumber, uid, dateOfBirth });
-    setCurrentUserPhoto(photoURL);
-    await setDoc(doc(db, "userChats", user.uid), {});
+    setCurrentUserPhoto(user.photoURL);
+    const res = await getDoc(doc(db, "userChats", user.uid));
+    if (!res.exists()) {
+      await setDoc(doc(db, "userChats", user.uid), {});
+    }
     logIn();
     navigate("/user");
   };
-  console.log(currentUser);
   const [isLogin, setIsLogin] = useState(false);
   return (
     <>
