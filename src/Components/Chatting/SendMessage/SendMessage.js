@@ -96,7 +96,6 @@ const SendMessage = () => {
             placeholder="Type your message"
             borderColor={borderColor}
             onFocus={() => setBorderColor("#5eb2d3")}
-            onResize={false}
           />
           <Tooltip title="Upload a photo" color="blue">
             <label className="add-image-btn" htmlFor="fileUpLoad">

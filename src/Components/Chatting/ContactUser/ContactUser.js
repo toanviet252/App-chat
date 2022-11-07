@@ -121,7 +121,7 @@ const ContactUser = () => {
             <p>
               {chat[1].lastestMessage?.text.length > 0
                 ? chat[1].lastestMessage?.text
-                : "image"}
+                : "..."}
             </p>
           </div>
         </div>

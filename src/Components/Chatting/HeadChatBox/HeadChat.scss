@@ -3,7 +3,6 @@
   justify-content: space-between;
   align-items: center;
   margin: 0.5rem 1rem;
-  border-bottom: 1px solid rgb(70, 66, 66);
   padding-bottom: 0.5rem;
   h2 {
     margin: 0;
@@ -24,11 +23,6 @@
       }
     }
   }
-  // @media screen and (max-width: 600px) {
-  //   .back-to-contact {
-  //     display: block !important;
-  //   }
-  // }
   .chat-toolkit-container {
     .kit-btn {
       border: none;
@@ -43,5 +37,12 @@
         }
       }
     }
+  }
+}
+
+.wrapper-head-chat {
+  border-bottom: 1px solid rgb(70, 66, 66);
+  .find-message-container {
+    margin: 0.5rem 1rem;
   }
 }

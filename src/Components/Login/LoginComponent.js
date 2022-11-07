@@ -11,7 +11,7 @@ import {
   db,
 } from "../../utils/Firebase/firebase";
 import { AuthAction } from "../../redux/configureStore";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
 const Login = () => {
@@ -27,7 +27,6 @@ const Login = () => {
   const logIn = () => {
     dispatch(AuthAction.logIn());
   };
-  const currentUser = useSelector((state) => state.Auth.currentUser);
   //Save session user when reload page
   useEffect(() => {
     (async () => {
