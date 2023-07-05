@@ -1,0 +1,23 @@
+
+.contact-container {
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 0;
+  padding-left: 0.5rem;
+  &:hover {
+    background-color: aliceblue;
+    cursor: pointer;
+  }
+  h3,
+  p {
+    margin: 0;
+    margin-left: 0.8vw;
+  }
+  .avatar-contact {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+  }
+}

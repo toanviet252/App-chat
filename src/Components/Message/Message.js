@@ -1,46 +1,26 @@
-import "./Message.scss";
-import { Avatar } from "antd";
-import { useSelector } from "react-redux";
-import { useEffect, useRef } from "react";
+import './Message.scss';
+import { Avatar } from 'antd';
+import { useSelector } from 'react-redux';
+import { useEffect, useRef } from 'react';
+import { getTimeFromTimeStamp } from '../../helpers/convertTimeStamp';
 
 const Message = ({ messages }) => {
   const currentUser = useSelector((state) => state.Auth.currentUser);
   const chooseUserContact = useSelector(
-    (state) => state.Auth.chooseContactUser
+    (state) => state.Auth.chooseContactUser,
   );
   const messageRef = useRef();
   useEffect(() => {
-    messageRef.current?.scrollIntoView({ behavior: "smooth" });
+    messageRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  //Hàm translate timeStamp
-  const pad = (num) => ("0" + num).slice(-2);
-  const getTimeFromTimeStamp = (timeStamp) => {
-    const date = new Date(timeStamp * 1000);
-    let hours = date.getHours();
-    let minutes = date.getMinutes();
-    let day = date.getDate();
-    let month = +date.getMonth() + 1;
-    let year = date.getUTCFullYear();
-    return (
-      pad(day) +
-      "/" +
-      pad(month) +
-      "/" +
-      pad(year) +
-      " at " +
-      pad(hours) +
-      ":" +
-      pad(minutes)
-    );
-  };
   return (
     <>
       {messages?.map((message) => {
         return (
           <div
             className={`message-feild ${
-              message?.senderId === currentUser?.uid ? "owner" : ""
+              message?.senderId === currentUser?.uid ? 'owner' : ''
             }`}
             key={message.id}
             ref={messageRef}
@@ -62,7 +42,7 @@ const Message = ({ messages }) => {
               {message.text.length > 0 ? (
                 <p className="message-text">{message.text}</p>
               ) : (
-                ""
+                ''
               )}
               {message.img && (
                 <img className="message-img" src={message.img} alt="send-img" />

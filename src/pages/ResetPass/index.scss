@@ -1,0 +1,36 @@
+.reset-wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.reset-pass-container {
+  width: 40%;
+
+  .control {
+    border-radius: 5px;
+  }
+
+  .btn {
+    border: none;
+    padding: 0.2rem 1rem;
+    border-radius: 3px;
+    cursor: pointer;
+    color: white;
+    background-color: #ba80cc;
+    &.reset-btn:hover {
+      opacity: 0.8;
+    }
+  }
+}
+@media screen and (max-width: 600px) {
+  .reset-pass-container {
+    width: 85%;
+  }
+}
+@media screen and (min-width: 1000px) {
+  .reset-pass-container {
+    width: 30%;
+  }
+}

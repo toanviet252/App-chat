@@ -1,16 +1,16 @@
-import { configureStore, createSlice } from "@reduxjs/toolkit";
+import { configureStore, createSlice } from '@reduxjs/toolkit';
 
 const intialAuthState = {
   isAuthenticated: false,
   currentUser: null,
   curentUserPhoto: null,
-  nameFind: "",
+  nameFind: '',
   listContact: [],
   chooseContactUser: null,
   isChooseContact: false,
 };
 export const AuthSlice = createSlice({
-  name: "Authentication",
+  name: 'Authentication',
   initialState: intialAuthState,
   reducers: {
     logIn(state) {
@@ -37,9 +37,9 @@ export const AuthSlice = createSlice({
   },
 });
 export const QueryUserSlice = createSlice({
-  name: "QueryUser",
+  name: 'QueryUser',
   initialState: {
-    queryUser: null,
+    queryUser: [],
     dataInfor: [],
     chatId: null,
   },
@@ -61,6 +61,8 @@ export const store = configureStore({
     Auth: AuthSlice.reducer,
     QueryReducer: QueryUserSlice.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }),
 });
 export const AuthAction = AuthSlice.actions;
 export const QueryUserAction = QueryUserSlice.actions;
