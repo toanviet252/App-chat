@@ -1,6 +1,6 @@
 import { SendOutlined, FileImageOutlined } from '@ant-design/icons';
 import { Tooltip } from 'antd';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import {
   arrayUnion,
   doc,
@@ -25,6 +25,8 @@ const SendMessage = () => {
     (state) => state.Auth.chooseContactUser,
   );
   const [borderColor, setBorderColor] = useState('#EAEAEA');
+  const inputRef = useRef(null);
+
   const handleSend = async () => {
     if (image) {
       const storageRef = ref(storage, `${uuid()}.${image.name}`);
@@ -84,8 +86,14 @@ const SendMessage = () => {
     handleSend();
   };
 
+  const handlePressEnter = (value) => {
+    // e.preventDefault();
+    if (!value || value.trim().length < 0) return;
+    handleSend();
+  };
+
   return (
-    <div>
+    <>
       <div className="file-upload-container">
         <p>{image?.name}</p>
       </div>
@@ -97,6 +105,8 @@ const SendMessage = () => {
             placeholder="Type your message"
             borderColor={borderColor}
             onFocus={() => setBorderColor('#5eb2d3')}
+            ref={inputRef}
+            onEnter={handlePressEnter}
           />
           <Tooltip title="Upload a photo" color="blue">
             <label className="add-image-btn" htmlFor="fileUpLoad">
@@ -116,7 +126,7 @@ const SendMessage = () => {
         onChange={(e) => setImage(e.target.files[0])}
         style={{ display: 'none' }}
       />
-    </div>
+    </>
   );
 };
 export default SendMessage;

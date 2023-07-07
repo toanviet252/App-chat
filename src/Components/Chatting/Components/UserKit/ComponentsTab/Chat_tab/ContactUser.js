@@ -1,8 +1,8 @@
 import './ContactUser.scss';
-import { Avatar } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   AuthAction,
+  ContactsAction,
   QueryUserAction,
 } from '../../../../../../redux/configureStore';
 import {
@@ -15,6 +15,8 @@ import {
 } from 'firebase/firestore';
 import { db } from '../../../../../../utils/Firebase/firebase';
 import { useCallback, useEffect, useState } from 'react';
+import QueryUser from '../../../QueryUser';
+import RecentChatContact from './Components/RecentChat';
 
 const ContactUser = () => {
   const currentUser = useSelector((state) => state.Auth.currentUser);
@@ -36,6 +38,10 @@ const ContactUser = () => {
     dispatch(AuthAction.setIsChooseContact(boolean));
   };
 
+  const setRecentContacts = (cts) => {
+    dispatch(ContactsAction.setRecentContacts(cts));
+  };
+
   //Hàm fetch data hội thoại của người dùng khi nhấn vào div query người dùng đã được truy vấn
   const [chats, setChats] = useState([]);
   useEffect(() => {
@@ -43,8 +49,14 @@ const ContactUser = () => {
       const unsub = onSnapshot(
         doc(db, 'userChats', currentUser?.uid),
         (doc) => {
-          const arrayChats = Object.entries(doc.data()); //chuyển data từ dạng Object sang dạng mảng
-          setChats(arrayChats);
+          const arrayChats = Object.entries(doc.data());
+          // Lọc bỏ những đoạn chat chưa có tin nhắn
+          const filterData = arrayChats.filter(
+            (doc) => doc[1].lastestMessage !== undefined,
+          );
+
+          setRecentContacts([...filterData]);
+          setChats(filterData);
         },
       );
       return () => {
@@ -53,7 +65,6 @@ const ContactUser = () => {
     };
     currentUser?.uid && getConversation();
   }, [currentUser?.uid]);
-
   //Hàm tạo document userChats mới khi lần đầu tìm kiếm contact
   const handleSelect = async (user) => {
     const combinedId =
@@ -107,47 +118,15 @@ const ContactUser = () => {
     // eslint-disable-next-line
     [currentUser?.uid],
   );
-  const contactList = chats
-    ?.sort((a, b) => b[1].date - a[1].date)
-    .map((chat) => {
-      const lastestMessage = chat[1]?.lastestMessage?.text;
-      // console.log(lastestMessage);
-      const getText = (lastestMessage) => {
-        if (lastestMessage?.length > 0 && lastestMessage?.length < 20)
-          return lastestMessage;
-        if (lastestMessage?.length >= 20)
-          return lastestMessage.slice(0, 20) + '...';
-        else return '...';
-      };
 
-      return (
-        <div className="contact-container" key={chat[1]?.userInfo?.uid}>
-          <Avatar
-            src={chat[1]?.userInfo?.photoURL}
-            className="avatar-contact"
-          />
-          <div
-            className="contact-detail"
-            onClick={() => handleSelectCurrentContact(chat[1].userInfo)}
-          >
-            <h3>{chat[1]?.userInfo?.displayName}</h3>
-            <p>{getText(lastestMessage)}</p>
-          </div>
-        </div>
-      );
-    });
   return (
     <>
-      {userQuery &&
-        userQuery.map((user) => (
-          <div className="contact-container" key={user.uid}>
-            <Avatar src={user.photoURL} className="avatar-contact" />
-            <div className="contact-detail" onClick={() => handleSelect(user)}>
-              <h3>{user.displayName}</h3>
-            </div>
-          </div>
-        ))}
-      <div>{contactList}</div>
+      <QueryUser user={userQuery} handleSelect={handleSelect} />
+      {/* <div>{contactList}</div> */}
+      <RecentChatContact
+        chatsData={chats}
+        handleSelectCurrentContact={handleSelectCurrentContact}
+      />
     </>
   );
 };

@@ -42,10 +42,7 @@ const UserKit = () => {
 
       {/* Outlet */}
       <div className="outlet-container">
-        {activeTab &&
-          userKit
-            .filter((kit) => kit.id === activeTab)
-            .map((kit) => kit.content)}
+        {activeTab && userKit.find((kit) => kit.id === activeTab)?.content}
       </div>
     </>
   );

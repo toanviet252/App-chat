@@ -32,7 +32,11 @@ const HeadUser = () => {
   //Tìm kiếm người dùng đã đăng ký tài khoản trên firestore
   const handleSearch = async () => {
     const usersRef = collection(db, 'users');
-    const q = query(usersRef, where('displayName', '<=', nameFind));
+    const q = query(
+      usersRef,
+      where('displayName', '==', nameFind),
+      // where('displayName', '>=', nameFind + '\uf8ff'),
+    );
     try {
       const querySnapshot = await getDocs(q);
 

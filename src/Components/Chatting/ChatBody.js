@@ -8,6 +8,7 @@ import MessageBox from './Components/MessageBox/MessageBox';
 import SendMessage from './Components/SendMessage/SendMessage';
 import TemplateChat from '../TemplateChat/TemplateChat';
 import './ChatBody.scss';
+import SpotifyWiget from '../Spotify';
 
 const ChatBody = () => {
   const isChooseContact = useSelector((state) => state.Auth.isChooseContact);
@@ -17,7 +18,7 @@ const ChatBody = () => {
         <Row className="body-main">
           <Col
             lg={10}
-            md={10}
+            md={12}
             sm={isChooseContact ? 0 : 24}
             xs={isChooseContact ? 0 : 24}
             className="sidebar-chat"
@@ -27,7 +28,7 @@ const ChatBody = () => {
           </Col>
           <Col
             lg={14}
-            md={14}
+            md={12}
             sm={isChooseContact ? 24 : 0}
             xs={isChooseContact ? 24 : 0}
             className="message-container"
@@ -44,6 +45,8 @@ const ChatBody = () => {
           </Col>
         </Row>
       </div>
+
+      <SpotifyWiget />
     </>
   );
 };
