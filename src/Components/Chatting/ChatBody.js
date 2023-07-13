@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Row, Col } from 'antd';
 import { useSelector } from 'react-redux';
 import HeadUser from './Components/HeadUser/HeadUser';
@@ -9,9 +9,23 @@ import SendMessage from './Components/SendMessage/SendMessage';
 import TemplateChat from '../TemplateChat/TemplateChat';
 import './ChatBody.scss';
 import SpotifyWiget from '../Spotify';
+import VideoCall from '../VideoCall';
+import { auth } from '../../utils/Firebase/firebase';
+import { useNavigate } from 'react-router-dom';
 
 const ChatBody = () => {
   const isChooseContact = useSelector((state) => state.Auth.isChooseContact);
+  const navigate = useNavigate();
+  useEffect(() => {
+    (async function () {
+      try {
+        await auth._initializationPromise;
+        if (!auth.currentUser) return navigate('/');
+      } catch (err) {
+        console.log(err);
+      }
+    })();
+  }, []);
   return (
     <>
       <div className="body-chat-wrapper">
@@ -47,6 +61,7 @@ const ChatBody = () => {
       </div>
 
       <SpotifyWiget />
+      <VideoCall />
     </>
   );
 };

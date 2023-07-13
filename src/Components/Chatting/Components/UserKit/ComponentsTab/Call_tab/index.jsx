@@ -1,6 +1,8 @@
 import { useSelector } from 'react-redux';
 import Contact from '../Contact';
 import { useMemo } from 'react';
+import { useContext } from 'react';
+import VideoContext from '../../../../../../contexts/VideoContext';
 
 const CallTab = () => {
   const recentContacts = useSelector(
@@ -13,6 +15,10 @@ const CallTab = () => {
       .map((user) => user[1].userInfo);
   }, [recentContacts]);
 
+  const { setCallToUser } = useContext(VideoContext);
+  const handleOpenVideoChat = (user) => {
+    setCallToUser(user);
+  };
   return (
     <>
       {usersData?.length > 0 &&
@@ -20,7 +26,7 @@ const CallTab = () => {
           <Contact
             key={user.uid}
             userData={user}
-            handleSelectCurrentContact={() => {}}
+            handleSelectCurrentContact={handleOpenVideoChat}
             hasExtraCallUI
           />
         ))}

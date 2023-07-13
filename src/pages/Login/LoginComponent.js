@@ -40,7 +40,7 @@ const Login = () => {
       setCurrentUser({ uid, displayName, photoURL, phoneNumber, dateOfBirth });
       setCurrentUserPhoto(photoURL);
       logIn();
-      navigate('/user');
+      navigate('/chat');
     } catch (err) {
       switch (err.code) {
         case 'auth/user-not-found':
@@ -69,7 +69,7 @@ const Login = () => {
         await setDoc(doc(db, 'userChats', user.uid), {});
       }
       logIn();
-      navigate('/user');
+      navigate('/chat');
     } catch (err) {
       console.log(err);
     }
@@ -156,7 +156,8 @@ const Login = () => {
           </div>
           <div className="sign-up-container">
             <p>
-              Don't have account? Register <Link to="/register">here</Link>.
+              Don&apos;t have account? Register <Link to="/register">here</Link>
+              .
             </p>
           </div>
         </div>

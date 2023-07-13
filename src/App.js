@@ -8,6 +8,7 @@ import Loading from './Components/Loading and Handle Error Page/LoadingPage/Load
 import { auth } from './utils/Firebase/firebase';
 import { AuthAction } from './redux/configureStore';
 import ForgotPassword from './pages/ResetPass';
+import NotFoundPage from './Components/Loading and Handle Error Page/404 Not Found/404';
 
 // Sử dụng Lazy Loading
 const RegisterUser = React.lazy(() => import('./pages/RegisterUser/Register'));
@@ -43,7 +44,7 @@ function App() {
           });
           setCurrentUserPhoto(photoURL);
           logIn();
-          navigate('/user');
+          // navigate('/chat');
         } else {
           navigate('/');
         }
@@ -57,9 +58,10 @@ function App() {
     <Suspense fallback={<Loading />}>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/user" element={<ChatBody />} />
+        <Route path="/chat" element={<ChatBody />} />
         <Route path="/register" element={<RegisterUser />} />
         <Route path="/reset-password" element={<ForgotPassword />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Suspense>
   );
