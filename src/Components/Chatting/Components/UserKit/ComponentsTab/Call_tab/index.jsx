@@ -2,9 +2,12 @@ import { useSelector } from 'react-redux';
 import Contact from '../Contact';
 import { useMemo } from 'react';
 import { useContext } from 'react';
-import VideoContext from '../../../../../../contexts/VideoContext';
+import VideoContext from '../../../../../../contexts/VideoCall/VideoContext';
+// import QueryUser from '../../../QueryUser';
+// import { createChatroom } from '../../../../../../apis/createChatroom';
 
 const CallTab = () => {
+  // const userQuery = useSelector((state) => state.QueryReducer.queryUser);
   const recentContacts = useSelector(
     (state) => state.ContactsReducer.recentContacts,
   );
@@ -19,8 +22,10 @@ const CallTab = () => {
   const handleOpenVideoChat = (user) => {
     setCallToUser(user);
   };
+
   return (
     <>
+      {/* <QueryUser user={userQuery} handleSelect={handleSelectContact} /> */}
       {usersData?.length > 0 &&
         usersData.map((user) => (
           <Contact

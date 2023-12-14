@@ -2,7 +2,7 @@ import { Avatar } from 'antd';
 import { PhoneTwoTone } from '@ant-design/icons';
 import './index.scss';
 import { useContext } from 'react';
-import VideoContext from '../../../../../../contexts/VideoContext';
+import VideoContext from '../../../../../../contexts/VideoCall/VideoContext';
 
 const Contact = ({ userData, handleSelectCurrentContact, hasExtraCallUI }) => {
   if (!userData) return null;

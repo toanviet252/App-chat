@@ -8,7 +8,7 @@ import 'antd/dist/antd.min.css';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './redux/configureStore';
-import VideoContextProvider from './contexts/VideoState';
+import VideoContextProvider from './contexts/VideoCall/VideoState';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 

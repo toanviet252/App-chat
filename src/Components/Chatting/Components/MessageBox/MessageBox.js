@@ -8,7 +8,7 @@ import './messagebox.scss';
 const MessageBox = () => {
   const [messages, setMessages] = useState([]);
   const chatId = useSelector((state) => state.QueryReducer.chatId);
-  //Hàm fetch data toàn bộ thông tin tin nhắn của current User
+  //fetch realtime message
   useEffect(() => {
     const getMessage = () => {
       const unsub = onSnapshot(doc(db, 'chats', chatId), (doc) => {

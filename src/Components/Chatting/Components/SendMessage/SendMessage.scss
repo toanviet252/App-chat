@@ -45,8 +45,32 @@
 .file-upload-container {
   z-index: 2;
   position: absolute;
-  bottom: 3rem;
-  left: 1rem;
+  bottom: 4rem;
+  left: 5%;
+  .preview-container {
+    position: relative;
+    width: 30%;
+    .preview-img {
+      width: 100%;
+      object-fit: cover;
+      border-radius: 5%;
+    }
+    .close-icon {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-color: gray;
+      color: white;
+      padding: 3px;
+      cursor: pointer;
+
+      border-radius: 50%;
+      &:hover {
+        background-color: rgb(40, 37, 44);
+        color: rgb(223, 223, 248);
+      }
+    }
+  }
 }
 .react-input-emoji--input {
   padding-right: 25px !important;
