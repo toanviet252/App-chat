@@ -1,0 +1,24 @@
+.contact-detail {
+  flex-grow: 1;
+  .extra-ui-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-right: 1rem;
+  }
+
+  .phone-icon {
+    svg {
+      font-size: 1.2rem;
+      //   opacity: 0;
+    }
+  }
+  &:hover {
+    svg {
+      path {
+        fill: rgb(30, 79, 224);
+      }
+    }
+  }
+}

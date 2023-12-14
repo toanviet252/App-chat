@@ -1,0 +1,40 @@
+.calling-modal-container {
+  width: max-content !important;
+  border-radius: 1rem;
+  min-width: 30vw;
+
+  .myCallContainer {
+    min-width: 600px;
+    min-height: 200px;
+  }
+  .call-title {
+    padding: 0 1rem;
+    text-align: center;
+  }
+  .action-call-container {
+    display: flex;
+    // justify-content: space-between;
+    gap: 0.5rem;
+    align-items: center;
+
+    .action-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.2rem;
+      width: 50%;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: rgb(61, 147, 187);
+      color: white;
+      padding: 0.3rem;
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+  }
+}
+.calling-modal-container .ant-modal-content {
+  border-radius: 0.8rem;
+}

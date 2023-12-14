@@ -1,0 +1,35 @@
+.body-chat-wrapper {
+  width: 70vw;
+  height: 85vh;
+  background-color: aliceblue;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  border-radius: 1rem;
+  box-shadow: 0px 0px 11px 1px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: 0px 0px 11px 1px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px 0px 11px 1px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  .body-main {
+    height: 100%;
+  }
+  .sidebar-chat {
+    background-color: rgb(61, 147, 187);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    flex-grow: 1;
+  }
+}
+@media screen and (max-width: 500px) {
+  .body-chat-wrapper {
+    width: 95vw;
+  }
+}
+.message-container {
+  height: 100%;
+  flex-grow: 1;
+}

@@ -1,0 +1,9 @@
+.toogle {
+  svg {
+    cursor: pointer;
+    color: rgb(88, 124, 137);
+    &:hover {
+      color: rgb(62, 62, 216);
+    }
+  }
+}

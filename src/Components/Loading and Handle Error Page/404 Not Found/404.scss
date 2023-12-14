@@ -1,0 +1,40 @@
+.not-found-page-container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .not-found-title {
+    font-size: 3em;
+    font-weight: bold;
+    z-index: 3;
+    flex-basis: 50%;
+    text-align: center;
+    p {
+      margin: 0;
+      background: -webkit-linear-gradient(0deg, #b240b2 0%, #115c64 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    button {
+      //   background: transparent;
+      border: none;
+      font-size: 60%;
+      background: -webkit-linear-gradient(0deg, #c29de9 0%, #8ccbdd 100%);
+
+      cursor: pointer;
+      padding: 0 1rem;
+      border-radius: 1rem;
+      a {
+        color: rgb(255, 255, 255);
+      }
+    }
+  }
+}
+@media screen and (max-width: 800px) {
+  .not-found-page-container {
+    flex-direction: column;
+  }
+}

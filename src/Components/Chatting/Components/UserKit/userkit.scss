@@ -1,0 +1,86 @@
+$kit-color: rgb(18, 21, 222);
+.user-kit-container {
+  margin: 0.2rem 1rem;
+  .user-kit-list {
+    display: flex;
+    list-style: none;
+    justify-content: space-around;
+    .kit-items {
+      width: 25%;
+      // background-color: rgb(144, 183, 217);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      i {
+        color: white;
+      }
+      p {
+        margin: 0;
+        color: white;
+        font-size: small;
+        font-family: 'Inter';
+      }
+      &:hover {
+        p,
+        i {
+          color: $kit-color;
+        }
+      }
+      transition: all 0.25s ease-in;
+      background-color: transparent;
+
+      &.active {
+        border-radius: 5px;
+        background-color: #74dfdf74;
+        p,
+        i {
+          color: $kit-color;
+        }
+      }
+    }
+  }
+}
+.meet-chat-container {
+  margin: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  .meet-chat-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 48%;
+    border-radius: 0.8rem;
+    cursor: pointer;
+    border: none;
+    padding: 0.2rem 0.5rem;
+    &:hover {
+      background-color: $kit-color;
+      color: white;
+    }
+    i {
+      margin-right: 3px;
+    }
+  }
+}
+
+.outlet-container {
+  display: flex;
+  flex-direction: column;
+  margin: 1.5rem 1rem 1rem 1rem;
+  background-color: white;
+  overflow-y: scroll;
+  flex-grow: 1;
+  border-radius: 10px;
+
+  &::-webkit-scrollbar {
+    width: 1rem;
+    background-color: aliceblue;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #67808074;
+  }
+}
