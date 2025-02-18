@@ -1,12 +1,10 @@
-import { Modal, message } from 'antd';
-import { useContext, useEffect, useRef } from 'react';
-import VideoContext from '../../../contexts/VideoCall/VideoContext';
 import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';
-import './index.scss';
+import { Modal } from 'antd';
+import { useContext, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { ZIM } from 'zego-zim-web';
-import callAudio from '../../../assets/call_ringtone.mp3';
-import outgoingAudio from '../../../assets/outgoing_ringtone.mp3';
+import VideoContext from '../../../contexts/VideoCall/VideoContext';
+import { useVideoCall } from '../../../hooks/useVideoCall';
+import './index.scss';
 
 const VideoModal = () => {
   const { setOpenVideoModal, openVideoModal, callToUser } =
@@ -14,91 +12,77 @@ const VideoModal = () => {
   const closeModal = () => {
     setOpenVideoModal(false);
   };
-
   const currentUser = useSelector((state) => state.Auth.currentUser);
+  const { init, handleCall } = useVideoCall(currentUser);
 
   const appID = +process.env.REACT_APP_ZEGOAPPID;
-  // const serverSecret = process.env.REACT_APP_SERVER_SECRET;
 
-  const generateToken = async (tokenServerUrl, userID) => {
-    try {
-      if (!currentUser?.uid) throw new Error('current user id is required');
-      const res = await fetch(`${tokenServerUrl}/?userId=${userID}`, {
-        method: 'GET',
-      });
-      const data = await res.json();
-      return data;
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const zegoCloundInstance = useRef(null);
+  // const init = async () => {
+  //   try {
+  //     if (!currentUser?.uid) return;
+  //     const { token } = await generateToken(
+  //       'https://app-chat-server-beige.vercel.app',
+  //       currentUser.uid,
+  //     );
+  //     const kitToken = ZegoUIKitPrebuilt.generateKitTokenForProduction(
+  //       appID,
+  //       token,
+  //       null,
+  //       currentUser.uid,
+  //       currentUser.displayName,
+  //     );
+  //     zegoCloundInstance.current = ZegoUIKitPrebuilt.create(kitToken);
+  //     zegoCloundInstance.current.addPlugins({ ZIM });
 
-  const zegoCloundInstance = useRef(null);
-  const init = async () => {
-    try {
-      if (!currentUser?.uid) return;
-      const { token } = await generateToken(
-        'https://app-chat-server-beige.vercel.app',
-        currentUser.uid,
-      );
-      const kitToken = ZegoUIKitPrebuilt.generateKitTokenForProduction(
-        appID,
-        token,
-        null,
-        currentUser.uid,
-        currentUser.displayName,
-      );
-      zegoCloundInstance.current = ZegoUIKitPrebuilt.create(kitToken);
-      zegoCloundInstance.current.addPlugins({ ZIM });
+  //     // custom config
+  //     zegoCloundInstance.current.setCallInvitationConfig({
+  //       ringtoneConfig: {
+  //         imcomingCallUrl: callAudio,
+  //         outgoingCallUrl: outgoingAudio,
+  //       },
 
-      // custom config
-      zegoCloundInstance.current.setCallInvitationConfig({
-        ringtoneConfig: {
-          imcomingCallUrl: callAudio,
-          outgoingCallUrl: outgoingAudio,
-        },
+  //       onCallInvitationEnded: (reason, data) => {
+  //         // add call message notificaion to user
+  //         console.log('>>> end call', reason, data);
+  //       },
+  //     });
+  //   } catch (err) {
+  //     console.log(err);
+  //     message.error(err.message);
+  //   }
+  // };
 
-        onCallInvitationEnded: (reason, data) => {
-          // add call message notificaion to user
-          console.log('end call', reason, data);
-        },
-      });
-    } catch (err) {
-      console.log(err);
-      message.error(err.message);
-    }
-  };
-
-  const handleCall = (callType) => {
-    if (!callToUser?.uid) return;
-    const callee = callToUser.uid;
-    const targetUser = {
-      userID: callee,
-      userName: callToUser.displayName,
-    };
-    // console.log(targetUser);
-    zegoCloundInstance.current
-      .sendCallInvitation({
-        callees: [targetUser],
-        callType: callType,
-        timeout: 60, //call will cancel until 60s
-      })
-      .then((res) => {
-        console.log(res);
-        if (res.errorInvitees.length) {
-          message.error('User is offline or not exist');
-        }
-        closeModal();
-      })
-      .catch((err) => {
-        const error = JSON.parse(err);
-        console.log(error);
-        message.error(error.message);
-      });
-  };
+  // const handleCall = (callType) => {
+  //   if (!callToUser?.uid) return;
+  //   const callee = callToUser.uid;
+  //   const targetUser = {
+  //     userID: callee,
+  //     userName: callToUser.displayName,
+  //   };
+  //   // console.log(targetUser);
+  //   zegoCloundInstance.current
+  //     .sendCallInvitation({
+  //       callees: [targetUser],
+  //       callType: callType,
+  //       timeout: 60, //call will cancel until 60s
+  //     })
+  //     .then((res) => {
+  //       console.log(res);
+  //       if (res.errorInvitees.length) {
+  //         message.error('User is offline or not exist');
+  //       }
+  //       closeModal();
+  //     })
+  //     .catch((err) => {
+  //       const error = JSON.parse(err);
+  //       console.log(error);
+  //       message.error(error.message);
+  //     });
+  // };
 
   useEffect(() => {
-    init();
+    init(appID);
   }, [currentUser]);
 
   return (
@@ -116,7 +100,11 @@ const VideoModal = () => {
         <div className="action-call-container">
           <button
             onClick={() =>
-              handleCall(ZegoUIKitPrebuilt.InvitationTypeVideoCall)
+              handleCall(
+                callToUser,
+                ZegoUIKitPrebuilt.InvitationTypeVideoCall,
+                closeModal,
+              )
             }
             className="action-btn"
           >
@@ -126,7 +114,11 @@ const VideoModal = () => {
 
           <button
             onClick={() =>
-              handleCall(ZegoUIKitPrebuilt.InvitationTypeVoiceCall)
+              handleCall(
+                callToUser,
+                ZegoUIKitPrebuilt.InvitationTypeVoiceCall,
+                closeModal,
+              )
             }
             className="action-btn"
           >

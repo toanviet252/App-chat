@@ -15,6 +15,7 @@ const ContactTab = () => {
   const [recentContact, setRecentContect] = useState(null);
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.Auth.currentUser);
+  const loadingQuery = useSelector((state) => state.QueryReducer.loadingQuery);
 
   const fetchContactData = async () => {
     const data = await queryData('users');
@@ -25,7 +26,9 @@ const ContactTab = () => {
   const fetchRecentContact = async () => {
     if (!currentUser.uid) return;
     const data = await queryData('userChats', currentUser.uid);
-    const recents = data.map((user) => user[1].userInfo);
+    const recents = data
+      .filter((user) => user[1]?.lastestMessage)
+      .map((user) => user[1].userInfo);
     setRecentContect(recents);
   };
   useEffect(() => {
@@ -73,7 +76,11 @@ const ContactTab = () => {
 
   return (
     <>
-      <QueryUser user={userQuery} handleSelect={handleSelectContact} />
+      <QueryUser
+        user={userQuery}
+        handleSelect={handleSelectContact}
+        loading={loadingQuery}
+      />
       <div className="currentContact">
         <p className="title">Recent Contact</p>
         {recentContact &&
@@ -87,7 +94,7 @@ const ContactTab = () => {
       </div>
 
       <div className="all-contact">
-        <p className="title">People you my know</p>
+        <p className="title">People you may know</p>
 
         {suggestContact &&
           suggestContact.map((user) => (

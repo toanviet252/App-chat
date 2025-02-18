@@ -1,14 +1,17 @@
+import { message } from 'antd';
 import {
   Timestamp,
   arrayUnion,
   doc,
+  getDoc,
+  onSnapshot,
   serverTimestamp,
   updateDoc,
 } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { v4 as uuid } from 'uuid';
 import { db, storage } from '../utils/Firebase/firebase';
-import { message } from 'antd';
+import { IoIosChatboxes } from 'react-icons/io';
 
 export const getMessages = () => {};
 
@@ -19,7 +22,7 @@ export const sendMessage = async (
   currentUserUID,
   receiveUserUID,
 ) => {
-  console.log(chatId, text, image, currentUserUID, receiveUserUID);
+  // console.log(chatId, text, image, currentUserUID, receiveUserUID);
   try {
     if (image) {
       const storageRef = ref(storage, `${uuid()}.${image.name}`);
@@ -82,3 +85,94 @@ export const sendMessage = async (
     return false;
   }
 };
+export const showNotification = (sender, text) => {
+  if (!('Notification' in window)) {
+    console.error('This browser does not support desktop notifications');
+    return;
+  }
+  if (Notification.permission === 'granted') {
+    new Notification('App chat', {
+      body: `${sender} send you a message: ${text}`,
+      // badge: 'badge',
+      icon: <IoIosChatboxes />,
+    });
+  } else if (Notification.permission !== 'denied') {
+    Notification.requestPermission().then((permission) => {
+      if (permission === 'granted') {
+        new Notification('App chat', {
+          body: `${sender} send you a message: ${text}`,
+          icon: <IoIosChatboxes />,
+          // badge: 'badge',
+        });
+      }
+    });
+  }
+};
+
+export const listenToMessages = (chatId, currentUserUID, isPageVisibility) => {
+  const chatRef = doc(db, 'chats', chatId);
+
+  onSnapshot(
+    chatRef,
+    async (docSnapshot) => {
+      if (docSnapshot.exists()) {
+        const chatData = docSnapshot.data();
+        const lastMessage = chatData.messages[chatData.messages.length - 1];
+
+        if (lastMessage.senderId !== currentUserUID) {
+          const res = await getUserInfo(lastMessage.senderId);
+          if (res) {
+            const senderName = res.displayName;
+            message.info(`${senderName}: ${lastMessage.text}`);
+            console.log('tab visible', !isPageVisibility);
+
+            if (!isPageVisibility) {
+              showNotification(senderName, lastMessage.text);
+            }
+          }
+        }
+      }
+    },
+    (error) => {
+      console.error('Error listening to messages:', error);
+      message.error('Could not listen to messages');
+    },
+  );
+};
+
+export const getUserInfo = async (senderId) => {
+  try {
+    const userRef = doc(db, 'users', senderId);
+    const userSnapshot = await getDoc(userRef);
+    if (userSnapshot.exists()) {
+      return userSnapshot.data();
+    } else {
+      console.error('No such user exists');
+      return null;
+    }
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+    return null;
+  }
+};
+
+// export const sendingCallMessage = async (
+//   chatId,
+//   reason,
+//   callerId,
+//   calleeId,
+// ) => {
+
+//   try {
+//     await updateDoc(doc(db, 'chats', chatId), {
+//       messages: arrayUnion({
+//         id: uuid(),
+//         text: ,
+//         senderId: callerId,
+//         date: Timestamp.now(),
+//       }),
+//     });
+//   } catch (err) {
+//     console.error(err.message);
+//   }
+// };

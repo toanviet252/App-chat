@@ -25,7 +25,7 @@ const SendMessage = () => {
 
   const handleSend = async () => {
     if (!chatId || !currentUser || !chooseUserContact) return;
-    if (!text || !image) return;
+    if (!text && !image) return;
     const res = await sendMessage(
       chatId,
       text,

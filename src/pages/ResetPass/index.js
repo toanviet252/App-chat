@@ -11,7 +11,7 @@ function ForgotPassword() {
 
   const handleSubmit = () => {
     form.validateFields().then(async (values) => {
-      console.log(values);
+      // console.log(values);
       const { email } = values;
       try {
         await resetPassword(email);

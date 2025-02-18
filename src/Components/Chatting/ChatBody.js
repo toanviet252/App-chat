@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Row, Col } from 'antd';
+import { Row, Col, message } from 'antd';
 import { useSelector } from 'react-redux';
 import HeadUser from './Components/HeadUser/HeadUser';
 import UserKit from './Components/UserKit/UserKit';
@@ -8,7 +8,7 @@ import MessageBox from './Components/MessageBox/MessageBox';
 import SendMessage from './Components/SendMessage/SendMessage';
 import TemplateChat from '../TemplateChat/TemplateChat';
 import './ChatBody.scss';
-import SpotifyWiget from '../Spotify';
+// import SpotifyWiget from '../Spotify';
 import VideoCall from '../VideoCall';
 import { auth } from '../../utils/Firebase/firebase';
 import { useNavigate } from 'react-router-dom';
@@ -21,6 +21,15 @@ const ChatBody = () => {
       try {
         await auth._initializationPromise;
         if (!auth.currentUser) return navigate('/');
+
+        // request permiss to push notification
+        if (Notification.permission === 'default') {
+          Notification.requestPermission().then(function (permission) {
+            if (permission === 'granted') {
+              message.info('Notification is turn on!');
+            }
+          });
+        }
       } catch (err) {
         console.log(err);
       }
@@ -60,7 +69,7 @@ const ChatBody = () => {
         </Row>
       </div>
 
-      <SpotifyWiget />
+      {/* <SpotifyWiget /> */}
       <VideoCall />
     </>
   );

@@ -9,23 +9,27 @@ export const userKit = [
     title: 'Chats',
     iconContext: 'fa-comments',
     content: <ContactUser />,
+    enable: true,
   },
   {
     id: 2,
     title: 'Calls',
     iconContext: 'fa-phone-square',
     content: <CallTab />,
+    enable: true,
   },
   {
     id: 3,
     title: 'Contacts',
     iconContext: 'fa-address-book',
     content: <ContactTab />,
+    enable: true,
   },
   {
     id: 4,
     title: 'Notification',
     iconContext: 'fa-bell',
     content: <NotificationTab />,
+    enable: false,
   },
 ];

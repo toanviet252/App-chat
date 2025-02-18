@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { userKit } from '../../../../constants/userkit';
 import './userkit.scss';
-import { message } from 'antd';
 
 const UserKit = () => {
-  const popup = () => message.warning('Function is not yet available');
+  // const popup = () => message.warning('Function is not yet available');
   const [activeTab, setActiveTab] = useState(1);
   const handleSelectTab = (id) => {
     setActiveTab(id);
@@ -15,9 +14,13 @@ const UserKit = () => {
         <ul className="user-kit-list">
           {userKit.map((kit) => (
             <li
-              className={`kit-items ${kit.id === activeTab ? 'active' : ''}`}
+              className={`kit-items ${kit.id === activeTab ? 'active' : ''} ${
+                !kit.enable ? 'disable' : ''
+              }`}
               key={kit.id}
-              onClick={() => handleSelectTab(kit.id)}
+              onClick={() => {
+                kit.enable && handleSelectTab(kit.id);
+              }}
             >
               <div className="kit-icon">
                 <i
@@ -31,14 +34,14 @@ const UserKit = () => {
         </ul>
       </div>
 
-      <div className="meet-chat-container">
+      {/* <div className="meet-chat-container">
         <button className="meet-chat-btn" onClick={popup}>
           <i className="fa fa-video-camera" aria-hidden="true"></i> Meet now
         </button>
         <button className="meet-chat-btn" onClick={popup}>
           <i className="fa fa-pencil-square-o" aria-hidden="true"></i> New Chat
         </button>
-      </div>
+      </div> */}
 
       {/* Outlet */}
       <div className="outlet-container">

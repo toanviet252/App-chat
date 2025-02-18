@@ -1,8 +1,10 @@
+import './index.scss';
+
 const NotificationTab = () => {
   return (
-    <>
-      <p>Notification tab</p>
-    </>
+    <div className="notification-container">
+      <p>feature under development</p>
+    </div>
   );
 };
 export default NotificationTab;

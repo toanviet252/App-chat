@@ -1,22 +1,19 @@
-import './ContactUser.scss';
-import { useSelector, useDispatch } from 'react-redux';
+import { doc, getDoc, onSnapshot, setDoc } from 'firebase/firestore';
+import { useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  generateCombinedId,
+  updateBothUserChat,
+} from '../../../../../../apis/createChatroom';
 import {
   AuthAction,
   ContactsAction,
   QueryUserAction,
 } from '../../../../../../redux/configureStore';
-import {
-  doc,
-  getDoc,
-  onSnapshot,
-  serverTimestamp,
-  setDoc,
-  updateDoc,
-} from 'firebase/firestore';
 import { db } from '../../../../../../utils/Firebase/firebase';
-import { useCallback, useEffect, useState } from 'react';
 import QueryUser from '../../../QueryUser';
 import RecentChatContact from './Components/RecentChat';
+import './ContactUser.scss';
 
 const ContactUser = () => {
   const currentUser = useSelector((state) => state.Auth.currentUser);
@@ -41,6 +38,7 @@ const ContactUser = () => {
   const setRecentContacts = (cts) => {
     dispatch(ContactsAction.setRecentContacts(cts));
   };
+  const loadingQuery = useSelector((state) => state.QueryReducer.loadingQuery);
 
   //Hàm fetch data hội thoại của người dùng khi nhấn vào div query người dùng đã được truy vấn
   const [chats, setChats] = useState([]);
@@ -67,34 +65,14 @@ const ContactUser = () => {
   }, [currentUser?.uid]);
   //Hàm tạo document userChats mới khi lần đầu tìm kiếm contact
   const handleSelect = async (user) => {
-    const combinedId =
-      currentUser?.uid > user?.uid
-        ? currentUser.uid + user.uid
-        : user.uid + currentUser.uid;
+    const combinedId = generateCombinedId(currentUser?.uid, user?.uid);
     setChatId(combinedId);
     try {
       const res = await getDoc(doc(db, 'chats', combinedId));
       if (!res.exists()) {
         //Tạo db lưu các tin nhắn của current users trong collect "chats"
         await setDoc(doc(db, 'chats', combinedId), { messages: [] });
-        //Update lại doccument trong colllection "userChats" khi người dùng nhắn tin
-        await updateDoc(doc(db, 'userChats', currentUser.uid), {
-          [combinedId + '.userInfo']: {
-            uid: user.uid,
-            displayName: user.displayName,
-            photoURL: user.photoURL,
-          },
-          [combinedId + '.date']: serverTimestamp(),
-        });
-        //Tạo đồng thời data với người nhận được tin nhắn.
-        await updateDoc(doc(db, 'userChats', user.uid), {
-          [combinedId + '.userInfo']: {
-            uid: currentUser.uid,
-            displayName: currentUser.displayName,
-            photoURL: currentUser.photoURL,
-          },
-          [combinedId + '.date']: serverTimestamp(),
-        });
+        await updateBothUserChat(combinedId, currentUser, user);
       }
     } catch (err) {
       console.error(err);
@@ -107,21 +85,21 @@ const ContactUser = () => {
   //Hàm chọn liên hệ đã có sẵn, sau khi đã query từ trước đó.
   const handleSelectCurrentContact = useCallback(
     (userInfor) => {
-      const combinedId =
-        currentUser?.uid > userInfor?.uid
-          ? currentUser.uid + userInfor.uid
-          : userInfor.uid + currentUser.uid;
+      const combinedId = generateCombinedId(currentUser?.uid, userInfor?.uid);
       setChatId(combinedId);
       setChooseContactUser(userInfor);
       setIsChooseContact(true);
     },
-    // eslint-disable-next-line
     [currentUser?.uid],
   );
 
   return (
     <>
-      <QueryUser user={userQuery} handleSelect={handleSelect} />
+      <QueryUser
+        user={userQuery}
+        handleSelect={handleSelect}
+        loading={loadingQuery}
+      />
       {/* <div>{contactList}</div> */}
       <RecentChatContact
         chatsData={chats}

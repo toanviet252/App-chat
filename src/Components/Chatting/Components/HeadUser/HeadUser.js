@@ -1,13 +1,21 @@
-import { Avatar, Input, Badge, message } from 'antd';
-import './HeadUser.scss';
 import { MenuOutlined, UserOutlined } from '@ant-design/icons';
+import { Avatar, Badge, Input, message } from 'antd';
+import { signOut } from 'firebase/auth';
+import {
+  collection,
+  endAt,
+  getDocs,
+  orderBy,
+  query,
+  startAt,
+} from 'firebase/firestore';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AuthAction, QueryUserAction } from '../../../../redux/configureStore';
-import { query, collection, where, getDocs } from 'firebase/firestore';
-import { db, auth } from '../../../../utils/Firebase/firebase';
-import { signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import { AuthAction, QueryUserAction } from '../../../../redux/configureStore';
+import { setLoadingQueryUser } from '../../../../redux/slices/QuerySlice';
+import { auth, db } from '../../../../utils/Firebase/firebase';
+import './HeadUser.scss';
 
 const HeadUser = () => {
   const currentUser = useSelector((state) => state.Auth.currentUser);
@@ -31,12 +39,16 @@ const HeadUser = () => {
   };
   //Tìm kiếm người dùng đã đăng ký tài khoản trên firestore
   const handleSearch = async () => {
+    dispatch(setLoadingQueryUser(true));
     const usersRef = collection(db, 'users');
     const q = query(
       usersRef,
-      where('displayName', '==', nameFind),
-      // where('displayName', '>=', nameFind + '\uf8ff'),
+      orderBy('displayName'),
+      startAt(nameFind),
+      endAt(nameFind + '\uf8ff'),
+      // where('displayName', '==', nameFind),
     );
+
     try {
       const querySnapshot = await getDocs(q);
 
@@ -48,6 +60,8 @@ const HeadUser = () => {
       setUserQuery(data);
     } catch (err) {
       message.error(err.message);
+    } finally {
+      dispatch(setLoadingQueryUser(false));
     }
   };
   const handleKey = (e) => {
@@ -98,6 +112,7 @@ const HeadUser = () => {
           value={nameFind}
           onKeyDown={handleKey}
           onChange={onChangeFindPeople}
+          allowClear
         />
       </div>
     </>
