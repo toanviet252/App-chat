@@ -9,6 +9,7 @@ import {
   QueryUserAction,
 } from '../../../../../../redux/configureStore';
 import QueryUser from '../../../QueryUser';
+import { BlackList } from '../../../../../../constants/app';
 
 const ContactTab = () => {
   const [data, setData] = useState([]);
@@ -39,7 +40,9 @@ const ContactTab = () => {
   const suggestContact = useMemo(() => {
     if (recentContact && data.length > 0) {
       let rs = [];
-      const allContactUID = data.map((u) => u.uid);
+      const allContactUID = data
+        .map((u) => u.uid)
+        .filter((uid) => !BlackList.includes(uid)); // loại bỏ các contact trong blacklist
       const recentContactUID = recentContact.map((u) => u.uid);
       for (let i = 0; i < allContactUID.length; i++) {
         if (!recentContactUID.includes(allContactUID[i])) {

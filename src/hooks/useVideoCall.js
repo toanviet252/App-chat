@@ -10,14 +10,12 @@ import { generateCombinedId } from '../apis/createChatroom';
 
 export const useVideoCall = (currentUser) => {
   const zegoCloudInstance = useRef(null);
+  const endPoints = process.env.REACT_APP_SERVER_URL;
 
   const init = async (appID) => {
     try {
       if (!currentUser?.uid) return;
-      const { token } = await generateToken(
-        'https://app-chat-server-beige.vercel.app',
-        currentUser.uid,
-      );
+      const { token } = await generateToken(endPoints, currentUser.uid);
       const kitToken = ZegoUIKitPrebuilt.generateKitTokenForProduction(
         appID,
         token,

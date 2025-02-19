@@ -103,6 +103,7 @@ const SendMessage = () => {
       <input
         type="file"
         id="fileUpLoad"
+        accept="image/*"
         onChange={(e) => {
           handlePreviewImage(e.target.files[0]);
         }}

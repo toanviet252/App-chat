@@ -1,4 +1,4 @@
-import { message } from 'antd';
+// import { message } from 'antd';
 import {
   doc,
   getDoc,
@@ -59,7 +59,7 @@ export const createChatroom = async (currentUser, selectedUser) => {
     };
   } catch (err) {
     console.log(err.message);
-    message.error(err.message);
+    // message.error(err.message);
     return {
       status: false,
       combinedId,

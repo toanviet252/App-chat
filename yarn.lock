@@ -3016,10 +3016,10 @@
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
-"@zegocloud/zego-uikit-prebuilt@^1.8.7":
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/@zegocloud/zego-uikit-prebuilt/-/zego-uikit-prebuilt-1.9.0.tgz#3d38c5b0fd26b73d26502e8ae67b97759bddcebf"
-  integrity sha512-TLZS31ak+ijwwaKR+DKE8mPI1XmGy4K64h+Tuk7SczYOn7Ovh2ZJDNVfDnXIxW+ROwnqNKQAuoznpXZk4oCZrg==
+"@zegocloud/zego-uikit-prebuilt@^2.14.1":
+  version "2.14.1"
+  resolved "https://registry.yarnpkg.com/@zegocloud/zego-uikit-prebuilt/-/zego-uikit-prebuilt-2.14.1.tgz#fb3e0f7dbcf1bb022c3a057f331f136ef194ab2e"
+  integrity sha512-gNdG/xUxVua+4NoelrHKXS+H+s8XwgMtx0gySzxvGE5gV643Z6R4k0kS5kQkbU7QbAZIyByO7QEyhvAjyUNcrA==
 
 abab@^2.0.3, abab@^2.0.5:
   version "2.0.6"
@@ -6934,9 +6934,9 @@ jiti@^1.19.1:
   integrity sha512-gFqAIbuKyyso/3G2qhiO2OM6shY6EPP/R0+mkDbyspxKazh8BXDC5FiFsUjlczgdNz/vfra0da2y+aHrusLG/Q==
 
 js-base64@^3.7.2:
-  version "3.7.5"
-  resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-3.7.5.tgz#21e24cf6b886f76d6f5f165bfcd69cc55b9e3fca"
-  integrity sha512-3MEt5DTINKqfScXKfJFrRbxkrnk2AxPWGBL/ycjz4dK8iqiSJ06UxD8jh8xuh6p10TX4t2+7FsBYVxxQbMg+qA==
+  version "3.7.7"
+  resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-3.7.7.tgz#e51b84bf78fbf5702b9541e2cb7bfcb893b43e79"
+  integrity sha512-7rCnleh0z2CkXhH67J8K1Ytz0b2Y+yxTPL+/KOJoa20hfnVQ/3/T6W/KflYI4bRHRagNeXeU2bkNGI3v1oS/lw==
 
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
@@ -11251,10 +11251,10 @@ yocto-queue@^0.1.0:
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
 
-zego-zim-web@^2.5.0:
-  version "2.12.0"
-  resolved "https://registry.yarnpkg.com/zego-zim-web/-/zego-zim-web-2.12.0.tgz#0c036880fa0cdf3d56bf4fc236c440241138d2c0"
-  integrity sha512-S9ytV6FwEZMBkBmeKpZy9INZZiG/A15/O2lIwrmcvoTSUJs3c5W6eWkD1fbeGd405FigG1fufx3Ht6MBScQMww==
+zego-zim-web@^2.19.0:
+  version "2.19.0"
+  resolved "https://registry.yarnpkg.com/zego-zim-web/-/zego-zim-web-2.19.0.tgz#5c366d5f6d331ab96dbbc612a784ef91cd836297"
+  integrity sha512-za9JLeJpcl193FfcqahG5rqsB1Ifqh0cGNKJwqEPBZRtU7gB5WdOw8qL/hiZEtJoTLKtv/K9MmyHscCKK3oR0Q==
   dependencies:
     crypto-js "^4.1.1"
     js-base64 "^3.7.2"
