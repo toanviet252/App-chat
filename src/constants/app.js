@@ -6,4 +6,5 @@ export const BlackList = [
   'IDmNcxa3ulPz7Gr0ABHpHffugm53',
   'LO2mygEpX2d6QcbivqOEiBdAEf53',
   'w7mNzYsjFmey4Zxd0ydX9rR99tw2',
+  'rdA3a2AEQIgsXVwL3RSaF8dMzMq1',
 ];

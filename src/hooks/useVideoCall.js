@@ -46,6 +46,7 @@ export const useVideoCall = (currentUser) => {
       userID: callee,
       userName: callToUser.displayName,
     };
+    console.log(targetUser);
 
     zegoCloudInstance.current
       .sendCallInvitation({
